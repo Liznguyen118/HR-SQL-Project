@@ -103,3 +103,74 @@ The result:
 |0|0|
 
 This check verifies that terminated employees have a termination date and that active employees do not. No inconsistencies were found between the termination indicator and termination date.
+
+### 3.3 Missing and Invalid Values
+
+```SQL
+SELECT
+    SUM(
+        CASE
+            WHEN EmpID IS NULL THEN 1
+            ELSE 0
+        END
+    ) AS missing_emp_id,
+
+    SUM(
+        CASE
+            WHEN Employee_Name IS NULL
+                 OR TRIM(Employee_Name) = ''
+            THEN 1
+            ELSE 0
+        END
+    ) AS missing_employee_name,
+
+    SUM(
+        CASE
+            WHEN Department IS NULL
+                 OR TRIM(Department) = ''
+            THEN 1
+            ELSE 0
+        END
+    ) AS missing_department,
+
+    SUM(
+        CASE
+            WHEN Position IS NULL
+                 OR TRIM(Position) = ''
+            THEN 1
+            ELSE 0
+        END
+    ) AS missing_position,
+
+    SUM(
+        CASE
+            WHEN DateofHire IS NULL
+                 OR TRIM(DateofHire) = ''
+            THEN 1
+            ELSE 0
+        END
+    ) AS missing_hire_date,
+
+    SUM(
+        CASE
+            WHEN Salary IS NULL THEN 1
+            ELSE 0
+        END
+    ) AS missing_salary,
+
+    SUM(
+        CASE
+            WHEN Salary <= 0 THEN 1
+            ELSE 0
+        END
+    ) AS invalid_salary
+    FROM HRDataset_v14;
+```
+The result:
+|missing_emp_id|missing_employee_name|missing_department|missing_position|missing_hire_date|missing_salary|invalid_salary|
+|--------------|---------------------|------------------|----------------|-----------------|--------------|--------------|
+|0|0|0|0|0|0|0|
+
+No missing or invalid values were found in the key fields required for the workforce analysis. The dataset is sufficiently complete for department, position, hiring, and compensation analysis.
+
+
