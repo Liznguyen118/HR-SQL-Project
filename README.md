@@ -69,3 +69,36 @@ The result:
 
 The dataset contains 311 employee records and 311 unique employee IDs, indicating that no duplicate employee IDs are present. Of these records, 207 employees are active and 104 have been terminated.
 
+### 3.2 Employment Status Consistency
+
+```SQL
+SELECT
+    SUM(
+        CASE
+            WHEN Termd = 1
+                 AND (
+                     DateofTermination IS NULL
+                     OR TRIM(DateofTermination) = ''
+                 )
+            THEN 1
+            ELSE 0
+        END
+    ) AS terminated_missing_date,
+
+    SUM(
+        CASE
+            WHEN Termd = 0
+                 AND DateofTermination IS NOT NULL
+                 AND TRIM(DateofTermination) <> ''
+            THEN 1
+            ELSE 0
+        END
+    ) AS active_with_termination_date
+	FROM HRDataset_v14;
+```
+The result:
+|terminated_missing_date|active_with_termination_date|
+|-----------------------|----------------------------|
+|0|0|
+
+This check verifies that terminated employees have a termination date and that active employees do not. No inconsistencies were found between the termination indicator and termination date.
