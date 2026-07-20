@@ -33,9 +33,7 @@ The dataset was imported into SQLite as the `hr_employee_data` table.
 ### 2.1 Data Preview
 
 ```SQL
-SELECT *
-FROM HRDataset_v14
-LIMIT 10;
+SELECT * FROM HRDataset_v14 LIMIT 10;
 ```
 The result: This query displays the first 10 records to review the table structure, column names, and sample values before conducting the analysis.
 |Employee_Name|EmpID|MarriedID|MaritalStatusID|GenderID|EmpStatusID|DeptID|PerfScoreID|FromDiversityJobFairID|Salary|Termd|PositionID|Position|State|Zip|DOB|Sex|MaritalDesc|CitizenDesc|HispanicLatino|RaceDesc|DateofHire|DateofTermination|TermReason|EmploymentStatus|Department|ManagerName|ManagerID|RecruitmentSource|PerformanceScore|EngagementSurvey|EmpSatisfaction|SpecialProjectsCount|LastPerformanceReview_Date|DaysLateLast30|Absences|
