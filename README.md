@@ -173,4 +173,38 @@ The result:
 
 No missing or invalid values were found in the key fields required for the workforce analysis. The dataset is sufficiently complete for department, position, hiring, and compensation analysis.
 
+## 4. Workforce Composition
 
+### 4.1 Current Workforce by Department
+
+```SQL
+SELECT 
+		Department,
+		COUNT (*) AS employee_record,
+		ROUND (
+			 COUNT(*) *100.0 /
+				(SELECT 
+					COUNT (*) 
+					FROM HRDataset_v14
+					WHERE Termd = 0),2) AS workforce_percentage
+	FROM HRDataset_v14
+	WHERE Termd = 0
+	GROUP BY Department
+	ORDER BY employee_record DESC;
+```
+
+The result:
+|Department|employee_record|workforce_percentage|
+|----------|---------------|--------------------|
+|Production       |126|60.87|
+|IT/IS|40|19.32|
+|Sales|26|12.56|
+|Software Engineering|7|3.38|
+|Admin Offices|7|3.38|
+|Executive Office|1|0.48|
+
+The query filters the dataset to include only current employees, groups them by department, and calculates each department's share of the active workforce.
+
+Insight: 
+- Production is the largest department, accounting for 60.87% of the current workforce. IT/IS is the second-largest department with 19.32%, followed by Sales with 12.56%.
+- The workforce is therefore highly concentrated in Production. This suggests that workforce planning, attendance management, and retention initiatives within Production could have a substantial impact on the organization as a whole.
