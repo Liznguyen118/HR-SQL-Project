@@ -49,5 +49,23 @@ The result: This query displays the first 10 records to review the table structu
 |Bachiochi, Linda|10114|0|0|0|3|5|3|1|47837|0|19|Production Technician I|MA|1902|02/11/70|F|Single|US Citizen|No|Black or African American|7/6/2009||N/A-StillEmployed|Active|Production       |Brannon Miller|12|Diversity Job Fair|Fully Meets|4.46|3|0|1/25/2019|0|4|
 |Bacong, Alejandro |10250|0|2|1|1|3|3|0|50178|0|14|IT Support|MA|1886|01/07/88|M |Divorced|US Citizen|No|White|1/5/2015||N/A-StillEmployed|Active|IT/IS|Peter Monroe|7|Indeed|Fully Meets|5.0|5|6|2/18/2019|0|16|
 
-
 ## 3. Dataset Structure
+
+Before conducting the workforce analysis, several data-quality checks were performed to verify record uniqueness, missing values, and logical consistency.
+
+```SQL
+SELECT
+	COUNT (*) AS total_record,
+	COUNT (DISTINCT EmpID) AS unique_employee_id,
+	SUM (CASE WHEN Termd = 0 THEN 1 ELSE 0 END ) AS active_employee,
+	SUM (CASE WHEN Termd = 1 THEN 1 ELSE 0 END ) AS terminated_employees
+FROM HRDataset_v14;
+```
+
+The result:
+|total_record|unique_employee_id|active_employee|terminated_employees|
+|------------|------------------|---------------|--------------------|
+|311|311|207|104|
+
+The dataset contains 311 employee records and 311 unique employee IDs, indicating that no duplicate employee IDs are present. Of these records, 207 employees are active and 104 have been terminated.
+
