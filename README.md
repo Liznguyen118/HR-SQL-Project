@@ -208,3 +208,52 @@ The query filters the dataset to include only current employees, groups them by 
 Insight: 
 - Production is the largest department, accounting for 60.87% of the current workforce. IT/IS is the second-largest department with 19.32%, followed by Sales with 12.56%.
 - The workforce is therefore highly concentrated in Production. This suggests that workforce planning, attendance management, and retention initiatives within Production could have a substantial impact on the organization as a whole.
+
+### 4.2 Most Common Positions Among Current Employees
+```SQL
+	SELECT 
+		position,
+		COUNT (*) AS Employee_record,
+		ROUND(AVG(Salary),2) AS average_salary
+	FROM HRDataset_v14 hv
+	WHERE Termd = 0 
+	GROUP BY position
+	ORDER BY employee_record DESC, average_salary DESC;
+```
+The result:
+|Position|Employee_record|average_salary|
+|--------|---------------|--------------|
+|Production Technician I|85|56061.02|
+|Production Technician II|31|65108.06|
+|Area Sales Manager|23|64243.0|
+|Production Manager|9|73198.89|
+|IT Support|8|63684.38|
+|Software Engineer|6|95857.67|
+|Data Analyst|6|89405.83|
+|Sr. Network Engineer|5|93070.8|
+|BI Developer|4|95465.0|
+|Network Engineer|4|58186.0|
+|Senior BI Developer|3|84802.67|
+|Accountant I|3|63507.67|
+|Sr. Accountant|2|102859.0|
+|Database Administrator|2|101849.5|
+|Sales Manager|2|69360.5|
+|President & CEO|1|250000.0|
+|CIO|1|220450.0|
+|Director of Sales|1|180000.0|
+|IT Director|1|178000.0|
+|Director of Operations|1|170500.0|
+|IT Manager - Infra|1|157000.0|
+|Data Architect|1|150290.0|
+|IT Manager - DB|1|140920.0|
+|IT Manager - Support|1|138888.0|
+|BI Director|1|110929.0|
+|Sr. DBA|1|100031.0|
+|Shared Services Manager|1|93046.0|
+|Software Engineering Manager|1|77692.0|
+|Administrative Assistant|1|51920.0|
+
+Insight:
+- Production Technician I is the most common position, with 85 current employees, followed by Production Technician II with 31 employees.
+- The two production technician roles account for a substantial share of the active workforce, which is consistent with Production being the organization’s largest department. This suggests that workforce planning and retention initiatives for production technicians could affect a large portion of employees.
+
