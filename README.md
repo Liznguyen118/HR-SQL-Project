@@ -51,6 +51,7 @@ The result: This query displays the first 10 records to review the table structu
 
 ## 3. Dataset Structure
 
+### 3.1 Record and Employee ID Validation
 Before conducting the workforce analysis, several data-quality checks were performed to verify record uniqueness, missing values, and logical consistency.
 
 ```SQL
