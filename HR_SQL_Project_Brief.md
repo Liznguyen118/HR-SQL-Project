@@ -191,7 +191,6 @@ Required output:
 
 Only include positions with at least 5 employee records to reduce the effect of very small groups.
 
-This is not an annual turnover rate. Describe it as the percentage of employee records associated with termination within each position.
 ---
 
 ## Section D: Compensation and performance
