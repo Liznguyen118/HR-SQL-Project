@@ -180,24 +180,18 @@ Required output:
 
 Exclude records representing employees who are still employed.
 
-### Question 9: Tenure before termination
+### Question 9: Termination concentration by position
 
-How long did terminated employees remain with the organization before leaving?
-
-Create tenure groups:
-
-- Under 1 year
-- 1 to under 3 years
-- 3 to under 5 years
-- 5 years or more
+Which job positions have the highest percentage of terminated employee records?
 
 Required output:
 
-| Tenure group | Terminated employees | Percentage of terminations |
-|---|---:|---:|
+| Position | Total employee records | Terminated employees | Termination percentage |
+|---|---:|---:|---:|
 
-Also calculate the average tenure at termination.
+Only include positions with at least 5 employee records to reduce the effect of very small groups.
 
+This is not an annual turnover rate. Describe it as the percentage of employee records associated with termination within each position.
 ---
 
 ## Section D: Compensation and performance
