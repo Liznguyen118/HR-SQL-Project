@@ -343,17 +343,17 @@ SELECT
 				,2) AS terminated_percentage
 		FROM HRDataset_v14
 		GROUP BY Department
-		ORDER BY  terminated_percentage;
+		ORDER BY  terminated_percentage DESC;
 ```
 The result:
 |Department|total_employee|Terminated_employee|terminated_percentage|
 |----------|--------------|-------------------|---------------------|
-|Executive Office|1|0|0.0|
-|Sales|31|5|16.13|
-|IT/IS|50|10|20.0|
-|Admin Offices|9|2|22.22|
-|Software Engineering|11|4|36.36|
 |Production|209|83|39.71|
+|Software Engineering|11|4|36.36|
+|Admin Offices|9|2|22.22|
+|IT/IS|50|10|20.0|
+|Sales|31|5|16.13|
+|Executive Office|1|0|0.0|
 
 This query groups employee records by department and calculates the number and percentage of terminated employees within each department.
 
