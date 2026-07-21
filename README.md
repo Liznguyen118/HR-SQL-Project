@@ -318,6 +318,46 @@ The result:
 This query filters the dataset to include current employees and groups them by gender. It calculates the number and percentage of current employees in each group.
 
 Insight:
+
 Female employees represent 56.04% of the current workforce, while male employees account for 43.96%. The overall current workforce is relatively balanced, with a moderately higher representation of female employees.
 
+
+## 5. Employee Retention Analysis
+### 5.1 Terminated Employee Records by Department
+
+```SQL
+SELECT 
+		TRIM (Department) AS Department,
+		COUNT (*) 		  AS total_employee,
+		SUM(
+		CASE 	
+			WHEN Termd = 1 THEN 1 
+			ELSE 0
+		END) AS Terminated_employee,
+		ROUND (
+			SUM(
+				CASE
+					WHEN Termd = 1 THEN 1 
+					ELSE 0 
+				END) * 100.0 / COUNT (*)
+				,2) AS terminated_percentage
+		FROM HRDataset_v14
+		GROUP BY Department
+		ORDER BY  terminated_percentage;
+```
+The result:
+|Department|total_employee|Terminated_employee|terminated_percentage|
+|----------|--------------|-------------------|---------------------|
+|Executive Office|1|0|0.0|
+|Sales|31|5|16.13|
+|IT/IS|50|10|20.0|
+|Admin Offices|9|2|22.22|
+|Software Engineering|11|4|36.36|
+|Production|209|83|39.71|
+
+This query groups employee records by department and calculates the number and percentage of terminated employees within each department.
+
+Insight:
+- Production has the highest number of terminated employees and the highest termination percentage at 39.71%. Software Engineering has the second-highest percentage at 36.36%, although the department contains only 11 employee records.
+- The results should be interpreted with consideration of department size, as percentages based on small groups may be less representative.
 
