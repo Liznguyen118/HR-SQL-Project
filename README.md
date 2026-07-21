@@ -404,3 +404,45 @@ The result:
 Insight:
 - The most common termination reason is moving to another position, accounting for 19.23% of all terminated employee records. This is followed by unhappiness at 13.46% and seeking more money at 10.58%.
 - Several of the leading reasons, including another position, unhappiness, higher pay, career change, and working hours, appear to be voluntary and potentially related to employee retention. However, the dataset does not provide enough context to determine the underlying causes of these decisions.
+
+### 5.3 Termination by Position
+```SQL
+SELECT 
+			TRIM (Position) AS Position,
+			COUNT (*) AS total_employee,
+			SUM(
+			CASE 
+				WHEN Termd = 1 THEN 1
+				ELSE 0
+			END) AS Terminated_employee,
+			ROUND (
+				SUM(
+					CASE 
+					 WHEN Termd = 1 THEN 1
+			         ELSE 0
+					END
+					) * 100.0 / COUNT (*)
+					,2) AS Termination_percentage
+			FROM HRDataset_v14 hv 
+			GROUP BY Position
+			HAVING COUNT (*) >= 5
+			ORDER BY  Termination_percentage DESC;
+```
+
+The result:
+|Position|total_employee|Terminated_employee|Termination_percentage|
+|--------|--------------|-------------------|----------------------|
+|Database Administrator|5|3|60.0|
+|Production Technician II|57|26|45.61|
+|Software Engineer|10|4|40.0|
+|Production Technician I|137|52|37.96|
+|Production Manager|14|5|35.71|
+|Network Engineer|5|1|20.0|
+|Area Sales Manager|27|4|14.81|
+|Data Analyst|7|1|14.29|
+|Sr. Network Engineer|5|0|0.0|
+|IT Support|8|0|0.0|
+
+Insight:
+- Database Administrator has the highest termination percentage at 60.00%, but the result is based on only five employee records and should therefore be interpreted cautiously.
+- Production Technician II has a termination percentage of 45.61% across 57 records, while Production Technician I has 52 terminated employees and a termination percentage of 37.96%. Because these roles also represent a large portion of the workforce, retention issues among production technicians may have a substantial operational impact.
