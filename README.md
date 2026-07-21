@@ -361,3 +361,46 @@ Insight:
 - Production has the highest number of terminated employees and the highest termination percentage at 39.71%. Software Engineering has the second-highest percentage at 36.36%, although the department contains only 11 employee records.
 - The results should be interpreted with consideration of department size, as percentages based on small groups may be less representative.
 
+### 5.2 Common Termination Reasons
+```SQL
+SELECT
+			TRIM (TermReason) AS Termination_reason,
+			COUNT (*) AS Number_of_termination,
+			ROUND (
+				COUNT (*) *100.0 /
+					(SELECT
+						COUNT (*) 
+					FROM HRDataset_v14
+					WHERE Termd = 1)
+					,2) AS Termination_percentage
+		FROM HRDataset_v14 hv 
+		WHERE Termd = 1
+		GROUP BY hv.Department 
+		ORDER BY  Number_of_termination DESC;
+```
+
+The result:
+|Termination_reason|Number_of_termination|Termination_percentage|
+|------------------|---------------------|----------------------|
+|Another position|20|19.23|
+|unhappy|14|13.46|
+|more money|11|10.58|
+|career change|9|8.65|
+|hours|8|7.69|
+|attendance|7|6.73|
+|return to school|5|4.81|
+|relocation out of area|5|4.81|
+|retiring|4|3.85|
+|performance|4|3.85|
+|no-call, no-show|4|3.85|
+|military|4|3.85|
+|medical issues|3|2.88|
+|maternity leave - did not return|3|2.88|
+|gross misconduct|1|0.96|
+|Learned that he is a gangster|1|0.96|
+|Fatal attraction|1|0.96|
+
+
+Insight:
+- The most common termination reason is moving to another position, accounting for 19.23% of all terminated employee records. This is followed by unhappiness at 13.46% and seeking more money at 10.58%.
+- Several of the leading reasons, including another position, unhappiness, higher pay, career change, and working hours, appear to be voluntary and potentially related to employee retention. However, the dataset does not provide enough context to determine the underlying causes of these decisions.
