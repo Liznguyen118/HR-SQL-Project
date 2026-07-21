@@ -257,3 +257,33 @@ Insight:
 - Production Technician I is the most common position, with 85 current employees, followed by Production Technician II with 31 employees.
 - The two production technician roles account for a substantial share of the active workforce, which is consistent with Production being the organization’s largest department. This suggests that workforce planning and retention initiatives for production technicians could affect a large portion of employees.
 
+### 4.3 Hiring Trend
+
+```SQL
+	SELECT 
+		SUBSTR(TRIM(DateofHire),-4) AS hiring_year,
+		COUNT (*) AS number_of_hire
+	FROM HRDataset_v14 hv 
+	GROUP BY hiring_year 
+	ORDER BY hiring_year ;
+```
+The result:
+|hiring_year|number_of_hire|
+|-----------|--------------|
+|2006|1|
+|2007|2|
+|2008|3|
+|2009|7|
+|2010|9|
+|2011|83|
+|2012|45|
+|2013|44|
+|2014|60|
+|2015|36|
+|2016|14|
+|2017|6|
+|2018|1|
+
+Insight:
+- Hiring increased substantially in 2011, when the organization recorded 83 hires, the highest number in the dataset. Another notable hiring period occurred in 2014 with 60 hires.
+- After 2015, hiring volume declined sharply, falling to 14 hires in 2016, 6 in 2017, and 1 in 2018. However, the later years may represent partial-year or incomplete data, so the decline should be interpreted cautiously.
