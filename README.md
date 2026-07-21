@@ -446,3 +446,33 @@ The result:
 Insight:
 - Database Administrator has the highest termination percentage at 60.00%, but the result is based on only five employee records and should therefore be interpreted cautiously.
 - Production Technician II has a termination percentage of 45.61% across 57 records, while Production Technician I has 52 terminated employees and a termination percentage of 37.96%. Because these roles also represent a large portion of the workforce, retention issues among production technicians may have a substantial operational impact.
+
+## 6. Salary Analysis
+### 6.1 Salary overview
+```SQL
+SELECT 	
+			TRIM (Department) AS Department,
+			Count (*) AS Employee,
+			MIN (Salary) AS Minimum_Salary,
+			MAX (Salary) AS Maximum_Salary,
+			ROUND (AVG (Salary),2) AS Average_Salary
+		FROM HRDataset_v14 hv 
+		GROUP BY Department 
+		ORDER BY Average_Salary DESC;
+```
+The result:
+|Department|Employee|Minimum_Salary|Maximum_Salary|Average_Salary|
+|----------|--------|--------------|--------------|--------------|
+|Executive Office|1|250000|250000|250000.0|
+|IT/IS|50|50178|220450|97064.64|
+|Software Engineering|11|77692|108987|94989.45|
+|Admin Offices|9|49920|106367|71791.89|
+|Sales|31|55875|180000|69061.26|
+|Production|209|45046|170500|59953.55|
+
+Insight:
+- Executive Office has the highest average salary at $250,000.00, but this department contains only one employee record, so the result is not representative of a broader salary pattern.
+- Among departments with larger employee groups, IT/IS has the highest average salary at $97,064.64, followed by Software Engineering at $94,989.45. Production has the lowest average salary at $59,953.55 and also represents the largest department with 209 employee records.
+- The wide differences between minimum and maximum salaries within several departments suggest that they contain employees from different positions or levels of seniority. Further analysis by position would provide a more meaningful compensation comparison.
+
+
