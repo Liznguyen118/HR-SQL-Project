@@ -451,14 +451,14 @@ Insight:
 ### 6.1 Salary overview
 ```SQL
 SELECT 	
-			TRIM (Department) AS Department,
-			Count (*) AS Employee,
-			MIN (Salary) AS Minimum_Salary,
-			MAX (Salary) AS Maximum_Salary,
-			ROUND (AVG (Salary),2) AS Average_Salary
-		FROM HRDataset_v14 hv 
-		GROUP BY Department 
-		ORDER BY Average_Salary DESC;
+	TRIM (Department) AS Department,
+	Count (*) AS Employee,
+	MIN (Salary) AS Minimum_Salary,
+	MAX (Salary) AS Maximum_Salary,
+	ROUND (AVG (Salary),2) AS Average_Salary
+FROM HRDataset_v14 hv 
+GROUP BY Department 
+ORDER BY Average_Salary DESC;
 ```
 The result:
 |Department|Employee|Minimum_Salary|Maximum_Salary|Average_Salary|
@@ -475,4 +475,36 @@ Insight:
 - Among departments with larger employee groups, IT/IS has the highest average salary at $97,064.64, followed by Software Engineering at $94,989.45. Production has the lowest average salary at $59,953.55 and also represents the largest department with 209 employee records.
 - The wide differences between minimum and maximum salaries within several departments suggest that they contain employees from different positions or levels of seniority. Further analysis by position would provide a more meaningful compensation comparison.
 
+### 6.2 Performance and employee outcome:
+```SQL
+SELECT 
+	TRIM (PerformanceScore) AS Performance_score,
+	COUNT (*) AS Employee,
+	ROUND (AVG(Salary),2) AS Average_salary,
+	ROUND (AVG (EngagementSurvey), 2) AS Average_engagement,
+	ROUND (AVG (EmpSatisfaction),2) AS Average_satisfaction,
+	ROUND (AVG (DaysLateLast30),2) AS Average_lateday,
+	ROUND (AVG (Absences),2) AS Average_absences
+FROM HRDataset_v14 hv 
+GROUP BY Performance_score
+ORDER BY Employee DESC;
+```
 
+The result:
+|Performance_score|Employee|Average_salary|Average_engagement|Average_satisfaction|Average_lateday|Average_absences|
+|-----------------|--------|--------------|------------------|--------------------|---------------|----------------|
+|Fully Meets|243|68366.72|4.24|3.95|0.02|10.22|
+|Exceeds|37|77144.86|4.48|4.11|0.0|10.49|
+|Needs Improvement|18|68407.56|2.99|3.61|3.78|11.33|
+|PIP|13|58971.08|2.22|2.54|4.31|8.31|
+
+This query groups employee records by performance category and calculates the number of employees in each group. It then compares the average salary, engagement score, satisfaction score, absences, and late days across the performance categories.
+
+The results are ordered from the highest performance category (`Exceeds`) to the lowest (`PIP`) to make differences between employee groups easier to compare. All average values are rounded to two decimal places.
+
+Insights:
+- Most employees are rated `Fully Meets`, with 243 employees, while only 13 employees are in the `PIP` category.
+- Employees rated `Exceeds` have the highest average salary at $77,144.86, as well as the highest average engagement score of 4.48 and satisfaction score of 4.11. This group also recorded no late days during the last 30 days.
+- In contrast, employees in the `PIP` category have the lowest average engagement score at 2.22, the lowest satisfaction score at 2.54, and the highest average number of late days at 4.31. Employees rated `Needs Improvement` also show relatively low engagement and satisfaction, with an average of 3.78 late days.
+- Lateness shows a clearer relationship with performance categories than absences. The `Needs Improvement` group has the highest average absences at 11.33, while the `PIP` group has a lower average of 8.31 absences. Therefore, the results do not indicate a consistent relationship between absence levels and performance.
+- Although higher-performing groups generally show stronger engagement and satisfaction, these results represent associations within the dataset. They do not prove that engagement, satisfaction, salary, or attendance directly caused the performance outcomes.
