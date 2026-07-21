@@ -292,7 +292,7 @@ Insight:
 ```SQL
 SELECT 
 		CASE 
-			WHEN Sex = 'M' THEN 'Male'
+			WHEN TRIM(Sex) = 'M' THEN 'Male'
 			WHEN Sex = 'F' THEN 'Female'
 			ELSE 'Unknown'
 		END AS Gender,
@@ -313,9 +313,11 @@ The result:
 |Gender|current_employee|workforce_percentage|
 |------|----------------|--------------------|
 |Female|116|56.04|
-|Unknown|91|43.96|
+|Male|91|43.96|
 
 This query filters the dataset to include current employees and groups them by gender. It calculates the number and percentage of current employees in each group.
 
 Insight:
 Female employees represent 56.04% of the current workforce, while male employees account for 43.96%. The overall current workforce is relatively balanced, with a moderately higher representation of female employees.
+
+
