@@ -767,8 +767,7 @@ Then, finding the employees requiring HR attention:
 				WHERE Attention_indicators >= 2
 				ORDER BY 
 					    Attention_indicators DESC,
-   					    EmpID 
-   				LIMIT 10;
+   					    EmpID;
 ```
 
 The result:
@@ -784,6 +783,163 @@ The result:
 |10179|IT/IS|Network Engineer|Peter Monroe|3.31|3|7|0|Fully Meets|4|
 |10183|Production|Production Technician I|Michael Albert|3.21|3|7|0|Fully Meets|4|
 |10184|Production|Production Technician II|Webster Butler|3.19|3|9|0|Fully Meets|4|
+|10193|IT/IS|Data Analyst|Simon Roup|3.04|3|2|0|Fully Meets|4|
+|10208|Production|Production Technician I|Ketsia Liebig|3.1|3|3|0|Fully Meets|4|
+|10211|Production|Production Technician I|Ketsia Liebig|2.9|3|6|0|Fully Meets|4|
+|10227|Production|Production Technician I|David Stanley|4.1|3|7|0|Fully Meets|4|
+|10284|Production|Production Technician I|Brannon Miller|3.88|4|6|0|Needs Improvement|4|
+|10294|Production|Production Technician II|Michael Albert|2.0|3|3|2|Needs Improvement|4|
+|10299|Production|Production Technician II|Michael Albert|3.0|1|5|2|PIP|4|
+|10306|Sales|Area Sales Manager|John Smith|1.93|3|5|6|PIP|4|
+|10307|Sales|Area Sales Manager|Lynn Daneault|1.81|2|5|3|PIP|4|
+|10309|IT/IS|Network Engineer|Peter Monroe|1.2|3|2|3|PIP|4|
+|10310|Production|Production Technician I|Amy Dunn|1.12|2|9|4|PIP|4|
+|10017|Production|Production Manager|Janet King|4.1|3|11|0|Exceeds|3|
+|10018|Production|Production Technician I|Amy Dunn|3.9|4|3|0|Exceeds|3|
+|10020|Production|Production Technician I|Brannon Miller|3.6|5|4|0|Exceeds|3|
+|10025|Production|Production Technician II|Kissy Sullivan|4.7|3|1|0|Exceeds|3|
+|10027|Production|Production Technician II|Elijiah Gray|4.3|3|4|0|Exceeds|3|
+|10029|Production|Production Technician I|Brannon Miller|4.1|4|5|0|Exceeds|3|
+|10036|Production|Production Technician II|Brannon Miller|4.3|3|1|0|Exceeds|3|
+|10037|Production|Production Technician I|Brannon Miller|4.0|3|12|0|Exceeds|3|
+|10039|Admin Offices|Administrative Assistant|Brandon R. LeBlanc|5.0|3|2|0|Fully Meets|3|
+|10051|Production|Production Technician I|David Stanley|5.0|3|2|0|Fully Meets|3|
+|10056|Production|Production Technician I|Elijiah Gray|5.0|3|1|0|Fully Meets|3|
+|10057|Production|Production Technician I|Elijiah Gray|5.0|3|6|0|Fully Meets|3|
+|10077|Production|Production Technician II|Webster Butler|5.0|3|4|0|Fully Meets|3|
+|10080|Admin Offices|Sr. Accountant|Board of Directors|5.0|3|3|0|Fully Meets|3|
+|10083|IT/IS|Sr. Network Engineer|Peter Monroe|5.0|3|5|0|Fully Meets|3|
+|10098|Production|Production Manager|Janet King|4.63|3|2|0|Fully Meets|3|
+|10111|Production|Production Technician I|David Stanley|4.5|3|5|0|Fully Meets|3|
+|10114|Production|Production Technician I|Brannon Miller|4.46|3|4|0|Fully Meets|3|
+|10116|Production|Production Manager|Janet King|4.37|3|2|0|Fully Meets|3|
+|10121|Sales|Area Sales Manager|Lynn Daneault|4.28|3|1|0|Fully Meets|3|
+|10126|Software Engineering|Software Engineer|Alex Sweetwater|4.2|3|2|0|Fully Meets|3|
+|10136|Production|Production Technician II|Webster Butler|4.0|4|7|0|Fully Meets|3|
+|10139|Production|Production Technician I|Brannon Miller|3.99|3|14|0|Fully Meets|3|
+|10143|Production|Production Technician II|Kissy Sullivan|3.96|4|6|0|Fully Meets|3|
+|10144|Production|Production Manager|Janet King|3.93|3|19|0|Fully Meets|3|
+|10145|Production|Production Technician I|Kissy Sullivan|3.93|3|20|0|Fully Meets|3|
+|10147|Admin Offices|Accountant I|Brandon R. LeBlanc|3.9|5|9|0|Fully Meets|3|
+|10154|Production|Production Technician I|Webster Butler|3.8|5|4|0|Fully Meets|3|
+|10155|Software Engineering|Software Engineer|Alex Sweetwater|3.79|5|8|0|Fully Meets|3|
+|10157|Production|Production Technician I|Ketsia Liebig|3.73|3|16|0|Fully Meets|3|
+|10159|Production|Production Technician I|Michael Albert|3.73|3|19|0|Fully Meets|3|
+|10161|Sales|Area Sales Manager|Lynn Daneault|3.69|3|18|0|Fully Meets|3|
+|10164|Production|Production Technician I|David Stanley|3.66|3|15|0|Fully Meets|3|
+|10167|Sales|Area Sales Manager|John Smith|3.6|5|9|0|Fully Meets|3|
+|10168|Production|Production Technician I|Ketsia Liebig|3.58|5|3|0|Fully Meets|3|
+|10173|IT/IS|BI Developer|Brian Champaigne|3.4|3|14|0|Fully Meets|3|
+|10176|Production|Production Technician I|Brannon Miller|3.38|3|17|0|Fully Meets|3|
+|10178|IT/IS|Data Analyst|Simon Roup|3.32|3|16|0|Fully Meets|3|
+|10190|Production|Production Technician II|Ketsia Liebig|3.11|5|4|0|Fully Meets|3|
+|10194|Software Engineering|Software Engineer|Alex Sweetwater|3.04|3|19|0|Fully Meets|3|
+|10201|Production|Production Technician II|Elijiah Gray|3.0|5|4|0|Fully Meets|3|
+|10202|Sales|Area Sales Manager|Lynn Daneault|3.4|4|7|0|Fully Meets|3|
+|10205|Sales|Area Sales Manager|John Smith|2.81|3|16|0|Fully Meets|3|
+|10206|Production|Production Technician I|David Stanley|3.6|5|4|0|Fully Meets|3|
+|10213|Production|Production Technician II|David Stanley|3.7|3|14|0|Fully Meets|3|
+|10214|Production|Production Technician II|Webster Butler|4.5|3|6|0|Fully Meets|3|
+|10220|IT/IS|IT Support|Eric Dougall|4.7|3|2|0|Fully Meets|3|
+|10226|Production|Production Technician I|Ketsia Liebig|4.2|3|2|0|Fully Meets|3|
+|10232|IT/IS|Senior BI Developer|Brian Champaigne|4.1|5|2|0|Fully Meets|3|
+|10233|Production|Production Technician II|Kelley Spirea|4.1|3|13|0|Fully Meets|3|
+|10235|Production|Production Technician I|Kelley Spirea|4.2|3|3|0|Fully Meets|3|
+|10251|Production|Production Technician I|Elijiah Gray|4.1|3|10|0|Fully Meets|3|
+|10256|Production|Production Technician I|Kissy Sullivan|4.1|5|3|0|Fully Meets|3|
+|10266|Production|Production Technician I|Kelley Spirea|4.7|3|4|0|Fully Meets|3|
+|10278|Production|Production Technician I|Kissy Sullivan|4.1|4|9|0|Fully Meets|3|
+|10279|Production|Production Technician I|Brannon Miller|4.1|3|11|0|Fully Meets|3|
+|10281|Production|Production Technician I|Michael Albert|4.25|3|6|4|Needs Improvement|3|
+|10282|Production|Production Manager|Janet King|4.13|2|3|3|Needs Improvement|3|
+|10288|IT/IS|IT Manager - Infra|Jennifer Zamora|2.39|3|13|4|Needs Improvement|3|
+|10295|Production|Production Technician I|Kelley Spirea|2.6|4|4|5|Needs Improvement|3|
+|10302|Production|Production Technician I|Brannon Miller|2.4|2|20|6|PIP|3|
+|10304|Sales|Area Sales Manager|John Smith|2.3|1|17|2|PIP|3|
+|10001|Production|Production Manager|Janet King|5.0|3|14|0|Exceeds|2|
+|10003|Production|Production Technician I|Brannon Miller|5.0|3|19|0|Exceeds|2|
+|10007|Production|Production Technician I|Amy Dunn|4.76|4|5|0|Exceeds|2|
+|10012|IT/IS|Data Analyst|Simon Roup|4.28|4|9|0|Exceeds|2|
+|10019|Production|Director of Operations|Janet King|3.7|5|15|0|Exceeds|2|
+|10021|Production|Production Technician I|Kelley Spirea|5.0|3|13|0|Exceeds|2|
+|10023|Production|Production Technician II|Kelley Spirea|4.4|3|16|0|Exceeds|2|
+|10024|Software Engineering|Software Engineer|Alex Sweetwater|4.5|5|1|0|Exceeds|2|
+|10026|Production|Production Technician I|Michael Albert|4.6|5|1|0|Exceeds|2|
+|10028|IT/IS|IT Manager - Support|Jennifer Zamora|4.3|5|4|0|Exceeds|2|
+|10031|Production|Production Technician I|Brannon Miller|4.5|4|1|0|Exceeds|2|
+|10038|Admin Offices|Accountant I|Brandon R. LeBlanc|5.0|4|3|0|Fully Meets|2|
+|10040|Sales|Area Sales Manager|John Smith|5.0|5|7|0|Fully Meets|2|
+|10042|Sales|Area Sales Manager|Lynn Daneault|5.0|5|2|0|Fully Meets|2|
+|10043|IT/IS|Data Analyst|Simon Roup|5.0|3|11|0|Fully Meets|2|
+|10045|IT/IS|Network Engineer|Peter Monroe|5.0|4|8|0|Fully Meets|2|
+|10046|Production|Production Technician I|Amy Dunn|5.0|3|13|0|Fully Meets|2|
+|10053|Production|Production Technician I|David Stanley|5.0|4|8|0|Fully Meets|2|
+|10054|Production|Production Technician I|David Stanley|5.0|4|8|0|Fully Meets|2|
+|10060|Production|Production Technician I|Kelley Spirea|5.0|5|9|0|Fully Meets|2|
+|10074|Production|Production Technician II|Kelley Spirea|5.0|3|20|0|Fully Meets|2|
+|10079|IT/IS|Senior BI Developer|Brian Champaigne|5.0|3|17|0|Fully Meets|2|
+|10081|Admin Offices|Sr. Accountant|Brandon R. LeBlanc|5.0|4|4|0|Fully Meets|2|
+|10082|IT/IS|Sr. DBA|Simon Roup|5.0|5|7|0|Fully Meets|2|
+|10085|Software Engineering|Software Engineer|Alex Sweetwater|4.96|4|3|0|Fully Meets|2|
+|10086|IT/IS|Data Architect|Brian Champaigne|4.94|3|17|0|Fully Meets|2|
+|10089|Executive Office|President & CEO|Board of Directors|4.83|3|10|0|Fully Meets|2|
+|10094|Production|Production Technician I|Kelley Spirea|4.73|5|6|0|Fully Meets|2|
+|10099|Sales|Sales Manager|Debra Houlihan|4.62|4|8|0|Fully Meets|2|
+|10103|Sales|Area Sales Manager|John Smith|4.53|3|16|0|Fully Meets|2|
+|10104|Production|Production Technician II|Elijiah Gray|4.53|5|5|0|Fully Meets|2|
+|10105|Production|Production Manager|Janet King|4.52|4|4|0|Fully Meets|2|
+|10107|Production|Production Technician II|Amy Dunn|4.51|4|3|0|Fully Meets|2|
+|10108|IT/IS|BI Director|Jennifer Zamora|4.5|5|8|0|Fully Meets|2|
+|10112|IT/IS|Database Administrator|Simon Roup|4.48|5|4|0|Fully Meets|2|
+|10113|IT/IS|Sr. Network Engineer|Peter Monroe|4.46|5|7|0|Fully Meets|2|
+|10115|Production|Production Technician I|Kelley Spirea|4.43|3|14|0|Fully Meets|2|
+|10119|IT/IS|IT Support|Eric Dougall|4.3|3|19|0|Fully Meets|2|
+|10123|Production|Production Technician I|Brannon Miller|4.21|5|4|0|Fully Meets|2|
+|10124|Sales|Area Sales Manager|Lynn Daneault|4.2|5|9|0|Fully Meets|2|
+|10127|IT/IS|Sr. Network Engineer|Peter Monroe|4.2|4|7|0|Fully Meets|2|
+|10129|Production|Production Technician I|Ketsia Liebig|4.17|4|1|0|Fully Meets|2|
+|10133|IT/IS|IT Support|Peter Monroe|4.11|4|16|0|Fully Meets|2|
+|10134|Admin Offices|Shared Services Manager|Janet King|4.1|4|20|0|Fully Meets|2|
+|10135|Production|Production Technician II|Kissy Sullivan|4.07|4|13|0|Fully Meets|2|
+|10158|Production|Production Manager|Janet King|3.73|4|12|0|Fully Meets|2|
+|10162|IT/IS|Data Analyst|Simon Roup|3.69|5|15|0|Fully Meets|2|
+|10165|Sales|Area Sales Manager|John Smith|3.65|5|20|0|Fully Meets|2|
+|10172|IT/IS|Senior BI Developer|Brian Champaigne|3.42|4|17|0|Fully Meets|2|
+|10174|Production|Production Technician II|David Stanley|3.4|4|14|0|Fully Meets|2|
+|10180|IT/IS|Sr. Network Engineer|Peter Monroe|3.27|4|13|0|Fully Meets|2|
+|10181|Production|Production Technician II|Ketsia Liebig|3.25|5|15|0|Fully Meets|2|
+|10192|Production|Production Technician I|Michael Albert|3.07|4|10|0|Fully Meets|2|
+|10197|IT/IS|BI Developer|Brian Champaigne|3.01|5|15|0|Fully Meets|2|
+|10198|IT/IS|IT Manager - DB|Jennifer Zamora|3.6|5|13|0|Fully Meets|2|
+|10200|Sales|Area Sales Manager|Lynn Daneault|3.0|5|17|0|Fully Meets|2|
+|10203|Production|Production Technician I|Kissy Sullivan|3.5|5|17|0|Fully Meets|2|
+|10207|Production|Production Technician I|David Stanley|3.4|5|15|0|Fully Meets|2|
+|10209|Production|Production Technician I|Elijiah Gray|3.4|5|13|0|Fully Meets|2|
+|10210|Production|Production Technician I|Elijiah Gray|3.3|4|11|0|Fully Meets|2|
+|10212|IT/IS|Sr. Network Engineer|Peter Monroe|3.1|5|19|0|Fully Meets|2|
+|10216|Production|Production Technician I|Kissy Sullivan|4.1|4|13|0|Fully Meets|2|
+|10217|Production|Production Technician II|Brannon Miller|4.3|3|14|0|Fully Meets|2|
+|10218|Production|Production Technician II|Kissy Sullivan|4.4|5|1|0|Fully Meets|2|
+|10223|Production|Production Technician II|Kelley Spirea|4.1|4|12|0|Fully Meets|2|
+|10225|Production|Production Technician I|Kelley Spirea|4.8|3|14|0|Fully Meets|2|
+|10234|IT/IS|BI Developer|Brian Champaigne|4.2|5|8|0|Fully Meets|2|
+|10236|Production|Production Technician I|Kissy Sullivan|4.3|5|7|0|Fully Meets|2|
+|10237|Production|Production Technician II|David Stanley|4.6|3|20|0|Fully Meets|2|
+|10238|Admin Offices|Accountant I|Brandon R. LeBlanc|4.5|2|14|0|Fully Meets|2|
+|10241|Sales|Area Sales Manager|John Smith|4.1|4|18|0|Fully Meets|2|
+|10243|Production|Production Technician I|Ketsia Liebig|4.3|5|7|0|Fully Meets|2|
+|10247|Production|Production Technician I|Kelley Spirea|4.7|5|8|0|Fully Meets|2|
+|10248|Production|Production Technician I|Ketsia Liebig|4.8|4|4|0|Fully Meets|2|
+|10258|Sales|Area Sales Manager|Lynn Daneault|4.3|3|7|2|Fully Meets|2|
+|10261|Production|Production Technician I|David Stanley|4.4|5|3|0|Fully Meets|2|
+|10265|Production|Production Technician I|Kelley Spirea|4.6|4|7|0|Fully Meets|2|
+|10271|Production|Production Technician I|David Stanley|4.5|5|2|0|Fully Meets|2|
+|10273|IT/IS|IT Support|Eric Dougall|4.7|4|1|0|Fully Meets|2|
+|10276|Production|Production Technician I|Ketsia Liebig|4.3|4|1|0|Fully Meets|2|
+|10287|Production|Production Technician I|David Stanley|2.44|5|18|4|Needs Improvement|2|
+|10291|Sales|Sales Manager|Debra Houlihan|2.4|4|16|2|Needs Improvement|2|
+|10308|Production|Production Technician I|Amy Dunn|1.56|5|15|6|PIP|2|
+
 
 
 This query evaluates active employees against five workforce-attention indicators: below-average engagement, below-average satisfaction, above-average absences, above-average late days, and a performance rating of `Needs Improvement` or `PIP`.
