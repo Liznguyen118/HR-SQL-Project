@@ -683,3 +683,116 @@ Insight:
 - John Smith's team records the highest average absences at 13.36, followed by Brian Champaigne at 12.50 and Webster Butler at 11.86. These teams may warrant further attendance analysis, but the figures alone do not establish that the manager caused the attendance pattern.
 - Overall, the teams associated with Amy Dunn, Webster Butler, Kissy Sullivan, and Simon Roup may require further investigation because of their relatively high termination percentages. However, the dataset does not control for department, job type, employee tenure, team history, or organizational changes. Therefore, the results should be treated as indicators for further review rather than direct measures of manager performance.
 
+## 8. Employees require HR attention:
+Calculating the benchmark of active employees:
+```SQL
+	SELECT 
+			ROUND (AVG (EngagementSurvey), 2) AS Average_engagement,
+			ROUND (AVG (EmpSatisfaction),2) AS Average_satisfaction,
+			ROUND (AVG (Absences),2) AS Average_absences,
+			ROUND (AVG (DaysLateLast30),2) AS Average_lateday
+		FROM HRDataset_v14 hv 
+		WHERE Termd = 0;
+```
+
+The result:
+|Average_engagement|Average_satisfaction|Average_absences|Average_lateday|
+|------------------|--------------------|----------------|---------------|
+|4.12|3.89|9.83|0.29|
+
+Then, finding the employees requiring HR attention:
+```SQL
+			
+	SELECT *
+	FROM 
+		(SELECT
+			EmpID,
+			TRIM (Department) AS Department,
+			TRIM (Position) AS Postion,
+			TRIM (ManagerName) AS Manager,
+			EngagementSurvey,
+        	EmpSatisfaction,
+        	Absences,
+        	DaysLateLast30,
+        TRIM(PerformanceScore) AS Performance_score,
+				CASE
+					WHEN EngagementSurvey < 
+						(SELECT 
+							AVG (EngagementSurvey)
+						 FROM HRDataset_v14 hv
+						 WHERE Termd = 0)
+					THEN 1
+					ELSE 0
+				END
+				+
+				CASE 
+					WHEN EmpSatisfaction <
+					 	 (SELECT 
+					 	 	AVG (EmpSatisfaction)
+					 	 	FROM HRDataset_v14
+					 	 	WHERE  Termd = 0)
+					 THEN 1
+					 ELSE 0
+				END
+				+ 
+				CASE 
+					WHEN Absences <
+						(SELECT 
+							AVG (Absences)
+						FROM HRDataset_v14
+					 	WHERE  Termd = 0 )
+					 THEN 1
+					 ELSE 0 
+				END
+				+
+				CASE
+					WHEN DaysLateLast30 <
+						(SELECT 
+							AVG (DaysLateLast30)
+						FROM HRDataset_v14
+					 	WHERE  Termd = 0)
+					 THEN 1
+					 ELSE 0
+				END 
+				+
+				CASE
+					WHEN TRIM (PerformanceScore) 
+								IN ('PIP','Needs Improvement')
+					THEN 1
+					ELSE 0
+				END AS Attention_indicators
+				FROM HRDataset_v14 hv2 
+				WHERE Termd = 0) AS Employee_attention
+				
+				WHERE Attention_indicators >= 2
+				ORDER BY 
+					    Attention_indicators DESC,
+   					    EmpID 
+   				LIMIT 10;
+```
+
+The result:
+|EmpID|Department|Postion|Manager|EngagementSurvey|EmpSatisfaction|Absences|DaysLateLast30|Performance_score|Attention_indicators|
+|-----|----------|-------|-------|----------------|---------------|--------|--------------|-----------------|--------------------|
+|10013|Sales|Area Sales Manager|Lynn Daneault|4.1|3|6|0|Exceeds|4|
+|10137|Production|Production Technician II|Kelley Spirea|4.0|3|7|0|Fully Meets|4|
+|10140|Sales|Area Sales Manager|John Smith|3.98|3|4|0|Fully Meets|4|
+|10150|Software Engineering|Software Engineering Manager|Jennifer Zamora|3.84|3|4|0|Fully Meets|4|
+|10151|IT/IS|Network Engineer|Peter Monroe|3.81|3|6|0|Fully Meets|4|
+|10156|IT/IS|Database Administrator|Simon Roup|3.75|3|2|0|Fully Meets|4|
+|10169|Production|Production Technician I|Elijiah Gray|3.51|3|2|0|Fully Meets|4|
+|10179|IT/IS|Network Engineer|Peter Monroe|3.31|3|7|0|Fully Meets|4|
+|10183|Production|Production Technician I|Michael Albert|3.21|3|7|0|Fully Meets|4|
+|10184|Production|Production Technician II|Webster Butler|3.19|3|9|0|Fully Meets|4|
+
+
+This query evaluates active employees against five workforce-attention indicators: below-average engagement, below-average satisfaction, above-average absences, above-average late days, and a performance rating of `Needs Improvement` or `PIP`.
+
+Each condition met is assigned a value of 1. The values are added together to create an `Attention_indicators` score for each active employee. Employees who meet at least two conditions are included in the final results.
+
+Company averages are calculated using active employees only, ensuring that each employee is compared with the current workforce.
+
+Insight:
+- A total of 89 active employees meet at least two workforce-attention indicators. Most of these employees meet two indicators, while a smaller group meets four or five conditions.
+- Employees with higher numbers of indicators may warrant prioritised review, particularly where low engagement or satisfaction occurs alongside attendance or performance concerns.
+- These results should be used as a starting point for supportive HR actions, such as manager check-ins, workload reviews, attendance discussions, or performance support. The indicators do not predict resignation and should not be used as evidence for disciplinary action without reviewing individual circumstances.
