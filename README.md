@@ -542,3 +542,76 @@ Insight:
 - Average engagement and satisfaction scores are almost identical between the two groups. Active employees have an average engagement score of 4.12 and satisfaction score of 3.89, while terminated employees record averages of 4.09 and 3.88, respectively. These small differences do not indicate a meaningful separation between the groups.
 - Attendance indicators show a clearer difference. Terminated employees have an average of 11.05 absences, compared with 9.83 among active employees. They also record more late days on average, at 0.66 compared with 0.29 for active employees.
 - Within this dataset, terminated employees are therefore associated with slightly lower salaries and less favourable attendance patterns. However, these results show associations only and do not prove that salary, absences, or lateness caused employee termination.
+
+## 7. Recruitment and management analysis
+### 7.1 Recruitment-source outcomes
+```SQL
+		SELECT 
+			RecruitmentSource AS Recruitment_source,
+			COUNT (*) AS Hires,
+			SUM (
+				CASE 
+					WHEN Termd = 1 THEN 1 
+					ELSE 0
+				END) AS Active_employee,
+			ROUND (
+				SUM (
+					CASE 
+						WHEN Termd = 0 THEN 1
+						ELSE 0
+					END) *100.0 / COUNT (*)
+				,2) AS Active_percentage,
+			ROUND (AVG (Salary),2) AS Average_salary,
+			ROUND (
+				AVG(
+					CASE 
+						WHEN PerformanceScore = 'Exceeds' THEN 4.0
+						WHEN PerformanceScore = 'Fully Meets' THEN 3.0
+						WHEN PerformanceScore  = 'Needs Improvement' THEN 2.0
+						WHEN PerformanceScore = 'PIP' THEN 1.0
+						ELSE NULL
+					END)
+					,2) AS Average_performance_related_score,
+			ROUND (AVG (EngagementSurvey),2) AS Average_engagement_score
+		FROM HRDataset_v14
+		GROUP BY Recruitment_source
+		ORDER BY Hires DESC;
+```
+
+The result:
+|Recruitment_source|Hires|Active_employee|Active_percentage|Average_salary|Average_performance_related_score|Average_engagement_score|
+|------------------|-----|---------------|-----------------|--------------|---------------------------------|------------------------|
+|Indeed|87|21|75.86|75495.75|2.98|3.99|
+|LinkedIn|76|18|76.32|64903.32|3.0|4.14|
+|Google Search|49|30|38.78|60744.84|2.94|4.19|
+|Employee Referral|31|5|83.87|77862.84|3.1|4.19|
+|Diversity Job Fair|29|16|44.83|72251.24|3.0|4.08|
+|CareerBuilder|23|11|52.17|63482.52|2.91|4.09|
+|Website|13|1|92.31|61537.69|2.77|4.22|
+|Other|2|1|50.0|83263.5|3.0|4.55|
+|On-line Web application|1|1|0.0|52505.0|3.0|5.0|
+
+**Performance Scoring Method**
+
+Because `PerformanceScore` is a categorical field, the performance ratings were converted into the following numeric scale:
+- Exceeds = 4
+- Fully Meets = 3
+- Needs Improvement = 2
+- PIP = 1
+
+The numeric values were then averaged for each recruitment source. A higher average score indicates that employees recruited through that source were generally associated with stronger performance ratings.
+
+This scale was created for this analysis and does not represent an official company performance-scoring system.
+
+Explanation:
+- This query groups employee records by recruitment source and calculates the total number of hires from each source.
+- It uses conditional aggregation to count employees who are still active and calculates the active-employee percentage by dividing active employees by total hires for each source.
+- The query also calculates the average salary, average engagement score, and average performance score for each recruitment source. Performance categories are converted into numeric values using the defined four-point scale before the average is calculated. All fractional values are rounded to two decimal places.
+
+Insight:
+- Indeed generated the highest hiring volume with 87 employees, followed by LinkedIn with 76. Their active-employee percentages are similar at 75.86% and 76.32%, respectively, suggesting that both sources combine substantial hiring volume with relatively strong employee retention within the dataset.
+- Employee Referral appears to produce the strongest overall outcomes among sources with a meaningful number of hires. It generated 31 hires, recorded an active-employee percentage of 83.87%, and had the highest average performance score among the larger recruitment sources at 3.10. Its average engagement score was also relatively high at 4.19.
+- Website recorded the highest active-employee percentage at 92.31%, but this result is based on only 13 hires. It also had the lowest average performance score at 2.77, indicating that a high active percentage alone does not necessarily represent the strongest overall recruitment outcome.
+- Google Search generated 49 hires but had an active-employee percentage of only 38.78%, substantially lower than Indeed, LinkedIn, and Employee Referral. Although its average engagement score was relatively strong at 4.19, its lower active percentage may justify further investigation into the roles recruited, employee tenure, or termination patterns associated with this source.
+- Sources such as Other and On-line Web Application contain only two and one employee records, respectively. Their results should not be used for broad conclusions because the sample sizes are too small.
+- Overall, Employee Referral appears to offer the strongest combination of hiring volume, active-employee percentage, performance, and engagement. Indeed and LinkedIn remain important because they generate the largest number of hires while maintaining active percentages above 75%. These patterns show associations within the dataset and do not prove that the recruitment source itself caused stronger employee outcomes.
