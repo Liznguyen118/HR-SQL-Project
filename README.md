@@ -508,3 +508,37 @@ Insights:
 - In contrast, employees in the `PIP` category have the lowest average engagement score at 2.22, the lowest satisfaction score at 2.54, and the highest average number of late days at 4.31. Employees rated `Needs Improvement` also show relatively low engagement and satisfaction, with an average of 3.78 late days.
 - Lateness shows a clearer relationship with performance categories than absences. The `Needs Improvement` group has the highest average absences at 11.33, while the `PIP` group has a lower average of 8.31 absences. Therefore, the results do not indicate a consistent relationship between absence levels and performance.
 - Although higher-performing groups generally show stronger engagement and satisfaction, these results represent associations within the dataset. They do not prove that engagement, satisfaction, salary, or attendance directly caused the performance outcomes.
+
+### 6.3 Active and terminated employees:
+```SQL
+SELECT 
+			CASE 
+				WHEN Termd = 0 THEN 'Active'
+				WHEN Termd = 1 THEN  'Terminated'
+				ELSE 'Unknown'
+			END AS Employee_group,	
+		COUNT (*) AS Employee,
+		ROUND (AVG (Salary),2) AS Average_salary,
+		ROUND (AVG (EngagementSurvey),2) AS Average_engagement_score,
+		ROUND (AVG (EmpSatisfaction),2) AS Average_satisfaction,
+		ROUND (AVG (Absences),2) AS Average_absences,
+		ROUND (AVG (DaysLateLast30),2) AS Average_Lateday
+FROM HRDataset_v14
+GROUP BY Employee_group 
+ORDER BY Employee DESC;
+```
+
+The result:
+|Employee_group|Employee|Average_salary|Average_engagement_score|Average_satisfaction|Average_absences|Average_Lateday|
+|--------------|--------|--------------|------------------------|--------------------|----------------|---------------|
+|Active|207|70694.03|4.12|3.89|9.83|0.29|
+|Terminated|104|65690.08|4.09|3.88|11.05|0.66|
+
+This query uses a `CASE` statement to classify employee records into two groups: `Active` and `Terminated`, based on the `Termd` field. It then groups the records by employee status and calculates the number of employees, average salary, engagement, satisfaction, absences, and late days for each group. All average values are rounded to two decimal places to make the results easier to compare.
+
+Insight:
+- The dataset contains 207 active employees and 104 terminated employees.
+- Active employees have a higher average salary of $70,694.03, compared with $65,690.08 among terminated employees, a difference of approximately $5,003.95.
+- Average engagement and satisfaction scores are almost identical between the two groups. Active employees have an average engagement score of 4.12 and satisfaction score of 3.89, while terminated employees record averages of 4.09 and 3.88, respectively. These small differences do not indicate a meaningful separation between the groups.
+- Attendance indicators show a clearer difference. Terminated employees have an average of 11.05 absences, compared with 9.83 among active employees. They also record more late days on average, at 0.66 compared with 0.29 for active employees.
+- Within this dataset, terminated employees are therefore associated with slightly lower salaries and less favourable attendance patterns. However, these results show associations only and do not prove that salary, absences, or lateness caused employee termination.
