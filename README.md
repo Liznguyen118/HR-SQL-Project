@@ -615,3 +615,71 @@ Insight:
 - Google Search generated 49 hires but had an active-employee percentage of only 38.78%, substantially lower than Indeed, LinkedIn, and Employee Referral. Although its average engagement score was relatively strong at 4.19, its lower active percentage may justify further investigation into the roles recruited, employee tenure, or termination patterns associated with this source.
 - Sources such as Other and On-line Web Application contain only two and one employee records, respectively. Their results should not be used for broad conclusions because the sample sizes are too small.
 - Overall, Employee Referral appears to offer the strongest combination of hiring volume, active-employee percentage, performance, and engagement. Indeed and LinkedIn remain important because they generate the largest number of hires while maintaining active percentages above 75%. These patterns show associations within the dataset and do not prove that the recruitment source itself caused stronger employee outcomes.
+
+## 7.2 Workforce indicators by manager
+```SQL
+		SELECT 
+			ManagerName AS Manager,
+			COUNT (*) AS Employee_records,
+			SUM(
+				CASE 
+					WHEN Termd = 0 THEN 1
+					ELSE 0
+				END) AS Active_employee,
+			SUM (
+				CASE 
+					WHEN Termd = 1 THEN 1
+					ELSE 0 
+				END ) AS Terminated_employee,
+			ROUND (
+			SUM (
+			CASE 
+					WHEN Termd = 1 THEN 1
+					ELSE 0 
+				END ) * 100.0 / COUNT (*)
+				,2) AS Termination_percentage,
+			ROUND (AVG (EngagementSurvey), 2) AS Average_engagement,
+			ROUND (AVG (EmpSatisfaction),2) AS Average_satisfaction,
+			ROUND (AVG (Absences),2) AS Average_absences	
+		FROM HRDataset_v14
+		GROUP BY Manager
+		HAVING Employee_records >= 5
+		ORDER BY Employee_records DESC;
+```
+
+The result:
+|Manager|Employee_records|Active_employee|Terminated_employee|Termination_percentage|Average_engagement|Average_satisfaction|Average_absences|
+|-------|----------------|---------------|-------------------|----------------------|------------------|--------------------|----------------|
+|Michael Albert|22|13|9|40.91|4.07|4.05|10.91|
+|Kissy Sullivan|22|10|12|54.55|4.04|3.91|10.59|
+|Kelley Spirea|22|16|6|27.27|4.48|3.82|11.36|
+|Elijiah Gray|22|14|8|36.36|4.07|3.95|9.14|
+|Brannon Miller|22|16|6|27.27|4.04|3.41|9.18|
+|Webster Butler|21|8|13|61.9|4.33|4.05|11.86|
+|Ketsia Liebig|21|16|5|23.81|4.05|4.1|9.14|
+|David Stanley|21|15|6|28.57|4.15|3.95|10.38|
+|Amy Dunn|21|8|13|61.9|3.92|3.81|9.52|
+|Janet King|19|13|6|31.58|4.18|3.63|10.21|
+|Simon Roup|17|9|8|47.06|4.23|3.82|9.47|
+|Peter Monroe|14|13|1|7.14|4.03|3.93|10.57|
+|John Smith|14|11|3|21.43|3.79|3.93|13.36|
+|Lynn Daneault|13|12|1|7.69|3.8|4.08|9.69|
+|Alex Sweetwater|9|6|3|33.33|4.08|4.22|9.78|
+|Brian Champaigne|8|8|0|0.0|4.06|4.0|12.5|
+|Jennifer Zamora|7|6|1|14.29|3.99|4.29|9.29|
+|Brandon R. LeBlanc|7|5|2|28.57|4.35|3.57|7.86|
+
+This query groups employee records by manager and calculates the size and workforce indicators of each manager's team.
+
+Conditional aggregation is used to count active and terminated employees. The termination percentage is calculated by dividing the number of terminated employees by the total employee records associated with each manager.
+
+The query also calculates the average engagement score, satisfaction score, and number of absences for each team. Only managers with at least five employee records are included to reduce the influence of very small groups. All average values and percentages are rounded to two decimal places.
+
+Insight:
+- The largest teams in the dataset contain 22 employee records. Elijiah Gray, Brannon Miller, Michael Albert, Kelley Spirea, and Kissy Sullivan each manage or have managed teams of this size.
+- Amy Dunn and Webster Butler have the highest termination percentages at 61.90%, with 13 terminated employees out of 21 employee records each. Kissy Sullivan follows with a termination percentage of 54.55%, while Simon Roup records 47.06%.
+- In contrast, Brian Champaigne has no terminated employees among eight employee records. Peter Monroe and Lynn Daneault also have relatively low termination percentages at 7.14% and 7.69%, respectively.
+- The results do not show a simple relationship between engagement and termination. For example, Webster Butler's team has a relatively high average engagement score of 4.33 despite having one of the highest termination percentages. Kelley Spirea's team has the highest average engagement score of 4.48, while its termination percentage is considerably lower at 27.27%.
+- John Smith's team records the highest average absences at 13.36, followed by Brian Champaigne at 12.50 and Webster Butler at 11.86. These teams may warrant further attendance analysis, but the figures alone do not establish that the manager caused the attendance pattern.
+- Overall, the teams associated with Amy Dunn, Webster Butler, Kissy Sullivan, and Simon Roup may require further investigation because of their relatively high termination percentages. However, the dataset does not control for department, job type, employee tenure, team history, or organizational changes. Therefore, the results should be treated as indicators for further review rather than direct measures of manager performance.
+
