@@ -591,6 +591,11 @@ The result:
 |Other|2|1|50.0|83263.5|3.0|4.55|
 |On-line Web application|1|1|0.0|52505.0|3.0|5.0|
 
+Explanation:
+- This query groups employee records by recruitment source and calculates the total number of hires from each source.
+- It uses conditional aggregation to count employees who are still active and calculates the active-employee percentage by dividing active employees by total hires for each source.
+- The query also calculates the average salary, average engagement score, and average performance score for each recruitment source. Performance categories are converted into numeric values using the defined four-point scale before the average is calculated. All fractional values are rounded to two decimal places.
+  
 **Performance Scoring Method**
 
 Because `PerformanceScore` is a categorical field, the performance ratings were converted into the following numeric scale:
@@ -602,11 +607,6 @@ Because `PerformanceScore` is a categorical field, the performance ratings were 
 The numeric values were then averaged for each recruitment source. A higher average score indicates that employees recruited through that source were generally associated with stronger performance ratings.
 
 This scale was created for this analysis and does not represent an official company performance-scoring system.
-
-Explanation:
-- This query groups employee records by recruitment source and calculates the total number of hires from each source.
-- It uses conditional aggregation to count employees who are still active and calculates the active-employee percentage by dividing active employees by total hires for each source.
-- The query also calculates the average salary, average engagement score, and average performance score for each recruitment source. Performance categories are converted into numeric values using the defined four-point scale before the average is calculated. All fractional values are rounded to two decimal places.
 
 Insight:
 - Indeed generated the highest hiring volume with 87 employees, followed by LinkedIn with 76. Their active-employee percentages are similar at 75.86% and 76.32%, respectively, suggesting that both sources combine substantial hiring volume with relatively strong employee retention within the dataset.
